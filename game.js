@@ -27,11 +27,31 @@ function gameFrame() {
     if(isRunning) {
         bird.y += gravity;
         bird.id.style.transform = `translate(0px, ${bird.y}px)`;
+
+if(bird.y > 1000) {
+    showGameOver()
+}
+
         requestAnimationFrame(gameFrame);
     } else {
         isRunning = false;
     }
 }
+
+function checkBirdHeight() {
+    if (bird.y >= 600) {
+        isRunning = false;
+        showGameOver();
+    }
+}
+
+    function showGameOver() 
+    {
+    menu.style.display = "flex";
+    overlay.style.display = "block";
+    console.log("You Died 😵");
+}
+
 
 window.addEventListener("keypress", (ev) => {
     if(ev.key == " ") {
@@ -44,3 +64,5 @@ restartBtn.addEventListener("click", () => {
 }, false)
 
 gameFrame();
+
+
