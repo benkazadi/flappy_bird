@@ -30,6 +30,21 @@ for (let i = 0; i < 5; i++) {
     );
 }
 
+//game over
+function showGameOver() {
+    menu.style.display = "flex";
+    overlay.style.display = "block";
+    console.log("You Died 😵");
+}
+
+//check height
+function checkBirdHeight() {
+    if (bird.y >= 1000) {
+        isRunning = false;
+        showGameOver();
+    }
+}
+
 //game loop
 function gameFrame() {
     if(isRunning) {
@@ -39,6 +54,7 @@ function gameFrame() {
 
         pipePosition -= pipeSpeed;
         container.style.transform = `translateX(${pipePosition}px)`;
+        checkBirdHeight();
         requestAnimationFrame(gameFrame);
     } else {
         isRunning = false;
