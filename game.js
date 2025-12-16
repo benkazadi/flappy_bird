@@ -8,7 +8,11 @@ const container = document.getElementById("container");
 let isRunning = true;
 const gravity = 10;
 const pipeSpeed = 5;
-const pipePosition = 600;
+let pipePosition = 0;
+
+//creating the pipe to genrate
+const pipeEl = document.createElement("div");
+pipeEl.className = "pipe";
 
 //player
 let bird = {
@@ -18,40 +22,44 @@ let bird = {
     velocity: 0
 }
 
-//creating the pipe to genrate
-const pipeEl = document.createElement("div");
-pipeEl.className = "pipe";
+//add multiple pipes
+for (let i = 0; i < 10; i++) {
+    pipeEl.style.translate = `${i * 500}px`;//spacing the pipes
+    container.appendChild(
+        pipeEl.cloneNode(true)
+    );
+}
+
+//game over
+function showGameOver() {
+    menu.style.display = "flex";
+    overlay.style.display = "block";
+    console.log("You Died 😵");
+}
+
+//check height
+function checkBirdHeight() {
+    if (bird.y >= 1000) {
+        isRunning = false;
+        showGameOver();
+    }
+}
 
 //game loop
 function gameFrame() {
     if(isRunning) {
+        //game updates
         bird.y += gravity;
         bird.id.style.transform = `translate(0px, ${bird.y}px)`;
 
-if(bird.y > 1000) {
-    showGameOver()
-}
-
+        pipePosition -= pipeSpeed;
+        container.style.transform = `translateX(${pipePosition}px)`;
+        checkBirdHeight();
         requestAnimationFrame(gameFrame);
     } else {
         isRunning = false;
     }
 }
-
-function checkBirdHeight() {
-    if (bird.y >= 600) {
-        isRunning = false;
-        showGameOver();
-    }
-}
-
-    function showGameOver() 
-    {
-    menu.style.display = "flex";
-    overlay.style.display = "block";
-    console.log("You Died 😵");
-}
-
 
 window.addEventListener("keypress", (ev) => {
     if(ev.key == " ") {
@@ -64,5 +72,3 @@ restartBtn.addEventListener("click", () => {
 }, false)
 
 gameFrame();
-
-
