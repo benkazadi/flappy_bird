@@ -38,9 +38,14 @@ button {
 #menu h1 {
     margin-top: 70px;
     font-family: "Bebas Neue", sans-serif;
+    text-align: center;
 }
 
 #overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
     width: 100%;
     height: 100%;
     display: none;
@@ -59,18 +64,38 @@ button {
     z-index: -100;
 }
 
-#container {
-    width: 100vw;
-    height: fit-content;
-    margin-top: -110px;
-}
-
+/*======================== Pipe and pipe animation ==========================*/
 .pipe {
-    position: absolute;
-    top: 0;
     width: 50px;
     height: 200px;
     background: green;
     border: solid black;
-    transition: all .5s ease;
+}
+
+.container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    overflow-x: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+.group {
+    height: 200px;
+    display: flex;
+    gap: 600px;
+    justify-content: end;
+    animation: spin 6s infinite linear; /*infinitely scrolling pipes; this also decides the pipe speeds*/
+    padding-right: 600px;
+}
+
+/*animation for the pipes*/
+@keyframes spin {
+    from {translate: 0%;}
+    to {translate: -100%;}
 }

@@ -2,17 +2,10 @@
 const menu = document.getElementById("menu");
 const overlay = document.getElementById("overlay");
 const restartBtn = document.getElementById("restartBtn");
-const container = document.getElementById("container");
 
 //game variables
 let isRunning = true;
 const gravity = 10;
-const pipeSpeed = 5;
-let pipePosition = 0;
-
-//creating the pipe to genrate
-const pipeEl = document.createElement("div");
-pipeEl.className = "pipe";
 
 //player
 let bird = {
@@ -23,7 +16,7 @@ let bird = {
 }
 
 //add multiple pipes
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 5; i++) {
     pipeEl.style.translate = `${i * 500}px`;//spacing the pipes
     container.appendChild(
         pipeEl.cloneNode(true)
@@ -54,7 +47,6 @@ function gameFrame() {
 
         pipePosition -= pipeSpeed;
         container.style.transform = `translateX(${pipePosition}px)`;
-        checkBirdHeight();
         requestAnimationFrame(gameFrame);
     } else {
         isRunning = false;
