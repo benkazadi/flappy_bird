@@ -15,9 +15,17 @@ let bird = {
     velocity: 0
 }
 
+//add multiple pipes
+for (let i = 0; i < 5; i++) {
+    pipeEl.style.translate = `${i * 500}px`;//spacing the pipes
+    container.appendChild(
+        pipeEl.cloneNode(true)
+    );
+}
+
 //game over
 function showGameOver() {
-    menu.style.display = "block";
+    menu.style.display = "flex";
     overlay.style.display = "block";
     console.log("You Died 😵");
 }
@@ -37,7 +45,8 @@ function gameFrame() {
         bird.y += gravity;
         bird.id.style.transform = `translate(${bird.x}px, ${bird.y}px)`;
 
-        checkBirdHeight();
+        pipePosition -= pipeSpeed;
+        container.style.transform = `translateX(${pipePosition}px)`;
         requestAnimationFrame(gameFrame);
     } else {
         isRunning = false;
