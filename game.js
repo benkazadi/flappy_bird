@@ -37,6 +37,7 @@ function gameFrame() {
         bird.y += gravity;
         bird.id.style.transform = `translate(${bird.x}px, ${bird.y}px)`;
 
+        checkBirdHeight();
         requestAnimationFrame(gameFrame);
     } else {
         isRunning = false;
